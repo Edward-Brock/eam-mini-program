@@ -6,9 +6,11 @@
     ],
     "window": {
         "backgroundTextStyle": "light",
-        "navigationBarBackgroundColor": "#fff",
+        "navigationBarBackgroundColor": "#ffffff",
         "navigationBarTitleText": "赛恩思商贸",
-        "navigationBarTextStyle": "black"
+        "navigationBarTextStyle": "black",
+        "backgroundColorTop": "#ffffff",
+        "backgroundColorBottom": "#ffffff"
     },
     "tabBar": {
         "borderStyle": "white",
@@ -25,5 +27,6 @@
         }]
     },
     "style": "v2",
+    "lazyCodeLoading": "requiredComponents",
     "sitemapLocation": "sitemap.json"
 }
