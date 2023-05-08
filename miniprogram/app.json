@@ -1,13 +1,29 @@
 {
-  "pages": [
-    "pages/index/index"
-  ],
-  "window": {
-    "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "赛恩思商贸",
-    "navigationBarTextStyle": "black"
-  },
-  "style": "v2",
-  "sitemapLocation": "sitemap.json"
+    "pages": [
+        "pages/index/index",
+        "pages/me/me",
+        "pages/info/info"
+    ],
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTitleText": "赛恩思商贸",
+        "navigationBarTextStyle": "black"
+    },
+    "tabBar": {
+        "borderStyle": "white",
+        "selectedColor": "#0000FF",
+        "list": [{
+            "pagePath": "pages/info/info",
+            "text": "扫描"
+        }, {
+            "pagePath": "pages/index/index",
+            "text": "SAIENSI"
+        }, {
+            "pagePath": "pages/me/me",
+            "text": "我"
+        }]
+    },
+    "style": "v2",
+    "sitemapLocation": "sitemap.json"
 }
