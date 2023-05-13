@@ -1,2 +1,7 @@
 <!--pages/info/info.wxml-->
-<text>pages/info/info.wxml</text>
+<view catchtap="onPullScan" class="container">
+	<text>pages/info/info.wxml</text>
+	<view>
+		{{scanOutPutInfo}}
+	</view>
+</view>

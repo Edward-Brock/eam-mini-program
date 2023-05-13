@@ -1,6 +1,10 @@
 // app.ts
+const config = require('/utils/config.js')
+
 App<IAppOption>({
-  globalData: {},
+  globalData: {
+    ...config
+  },
   onLaunch() {
     // 登录
     wx.login({

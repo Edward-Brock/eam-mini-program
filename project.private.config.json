@@ -3,5 +3,6 @@
     "projectname": "eam-mini-program",
     "setting": {
         "compileHotReLoad": true
-    }
+    },
+    "condition": {}
 }

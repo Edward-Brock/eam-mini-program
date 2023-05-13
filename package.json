@@ -3,12 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "set NODE_ENV='dev' && node script.env.js",
+    "prod": "set NODE_ENV='prod' && node script.env.js"
   },
   "keywords": [],
   "author": "",
   "license": "",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "miniprogram-api-typings": "^2.8.3-1"
   }

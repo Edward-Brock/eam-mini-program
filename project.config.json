@@ -29,5 +29,9 @@
     "editorSetting": {
         "tabIndent": "auto",
         "tabSize": 4
+    },
+    "scripts": {
+        "beforeCompile": "npm run dev",
+        "beforeUpload": "npm run prod"
     }
 }

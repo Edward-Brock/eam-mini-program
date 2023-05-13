@@ -1,6 +1,6 @@
 <!--index.wxml-->
 <view class="container">
-  <view class="content">
-    <text>{{motto}}</text>
+  <view class="topHeader">
+    <view>{{timePrompt}}</view>
   </view>
 </view>

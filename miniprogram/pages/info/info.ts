@@ -1,11 +1,25 @@
 // pages/info/info.ts
 Page({
 
+    onPullScan() {
+        let _ = this;
+        wx.scanCode({
+            onlyFromCamera: false,
+            scanType: ['barCode', 'qrCode', 'datamatrix', 'pdf417'],
+            success(res: any) {
+                console.log(res.result)
+                _.setData({
+                    scanOutPutInfo: res.scanType
+                })
+            }
+        })
+    },
+
     /**
      * 页面的初始数据
      */
     data: {
-
+        scanOutPutInfo: []
     },
 
     /**
