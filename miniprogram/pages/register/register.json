@@ -5,6 +5,7 @@
         "van-field": "@vant/weapp/field/index",
         "van-picker": "@vant/weapp/picker/index",
         "van-popup": "@vant/weapp/popup/index",
+        "van-datetime-picker": "@vant/weapp/datetime-picker/index",
         "van-button": "@vant/weapp/button/index"
     }
 }

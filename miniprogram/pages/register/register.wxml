@@ -1,22 +1,47 @@
 <!--pages/register/register.wxml-->
 <view class="container">
-	<view class="content">
+	<view class="header">
 		<view class="welcome_tip">欢迎使用</view>
 		<view class="eam_name">{{eamName}}</view>
 	</view>
-	<view>
-		<van-cell-group>
-			<!-- 真实姓名 -->
-			<van-field label="真实姓名" name="name" value="{{ registerInfo.name }}" placeholder="请输入用户名" required="true" />
-			<!-- 性别选择 -->
+	<view class="content">
+		<form catchsubmit="formSubmit" catchreset="formReset">
 			<van-cell-group>
-				<van-field readonly is-link value="{{ registerInfo.gender }}" catchtap="onPopupGenderSelect" center clearable placeholder="请选择性别" label="性别" required="true">
-				</van-field>
+				<!-- 系统昵称 -->
+				<van-field size="large" label="你的昵称" name="nickname" value="{{ registerInfo.nickname }}" placeholder="请输入你喜欢的昵称" required="true" maxlength="64" clearable />
+				<!-- 真实姓名 -->
+				<van-field size="large" label="真实姓名" name="name" value="{{ registerInfo.name }}" placeholder="请输入你的真实姓名" required="true" maxlength="16" clearable />
+				<!-- 性别选择 -->
+				<van-cell-group>
+					<van-field size="large" name="gender" readonly is-link border="{{false}}" value="{{ registerInfo.gender }}" catchtap="onPopupGenderSelect" center placeholder="请选择你的性别" label="性别" required="true">
+					</van-field>
+				</van-cell-group>
+				<!-- 性别弹出层 -->
+				<van-popup show="{{ popupInfo.showGenderSelect }}" bind:close="onGenderSelectCancel" position="bottom">
+					<van-picker loading="{{false}}" show-toolbar title="选择性别" columns="{{ genderArray }}" bind:cancel="onGenderSelectCancel" bind:confirm="onGenderSelectConfirm" />
+				</van-popup>
+				<!-- 出生日期 -->
+				<van-cell-group>
+					<van-field size="large" name="birthday" readonly is-link border="{{false}}" value="{{ registerInfo.birthday }}" catchtap="onPopupBirthdaySelect" center placeholder="请选择你的出生日期" label="出生日期" required="true">
+					</van-field>
+				</van-cell-group>
+				<!-- 出生日期弹出层 -->
+				<van-popup show="{{ popupInfo.showBirthdaySelect }}" bind:close="onBirthdaySelectCancel" position="bottom">
+					<van-datetime-picker type="date" min-date="{{ minBirthdayDate }}" max-date="{{ maxBirthdayDate }}" value="{{ registerInfo.birthday }}" bind:change="onPopupBirthdaySelect" title="请选择出生日期" formatter="{{ formatter }}" bind:cancel="onBirthdaySelectCancel" bind:confirm="onBirthdaySelectConfirm" />
+				</van-popup>
+				<!-- 入职日期 -->
+				<van-cell-group>
+					<van-field size="large" name="joined_date" readonly is-link border="{{false}}" value="{{ registerInfo.joined_date }}" catchtap="onPopupJoinedDateSelect" center placeholder="请选择你的入职日期" label="入职日期" required="true">
+					</van-field>
+				</van-cell-group>
+				<!-- 入职日期弹出层 -->
+				<van-popup show="{{ popupInfo.showJoinedDateSelect }}" bind:close="onJoinedDateSelectCancel" position="bottom">
+					<van-datetime-picker type="date" min-date="{{ minJoinedDate }}" max-date="{{ maxJoinedDate }}" value="{{ registerInfo.birthday }}" bind:change="onPopupJoinedDateSelect" title="请选择入职日期" formatter="{{ formatter }}" bind:cancel="onJoinedDateSelectCancel" bind:confirm="onJoinedDateSelectConfirm" />
+				</van-popup>
+				<!-- 联系方式 -->
+				<van-field size="large" label="联系电话" type="number" name="tel" value="{{ registerInfo.tel }}" placeholder="请输入你的联系电话" required="true" maxlength="11" clearable />
 			</van-cell-group>
-			<!-- 性别弹出层 -->
-			<van-popup show="{{ popupInfo.showGenderSelect }}" bind:close="onCloseGenderSelect" position="bottom">
-				<van-picker loading="{{false}}" show-toolbar title="选择性别" columns="{{ genderArray }}" bind:cancel="onGenderSelectCancel" bind:confirm="onGenderSelectConfirm" />
-			</van-popup>
-		</van-cell-group>
+			<button class="submit" type="primary" form-type="submit">提交申请</button>
+		</form>
 	</view>
 </view>
