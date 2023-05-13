@@ -2,7 +2,8 @@
     "pages": [
         "pages/index/index",
         "pages/me/me",
-        "pages/info/info"
+        "pages/info/info",
+        "pages/register/register"
     ],
     "window": {
         "backgroundTextStyle": "light",
@@ -26,7 +27,6 @@
             "text": "我"
         }]
     },
-    "style": "v2",
     "lazyCodeLoading": "requiredComponents",
     "sitemapLocation": "sitemap.json"
 }

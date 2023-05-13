@@ -1,0 +1,22 @@
+<!--pages/register/register.wxml-->
+<view class="container">
+	<view class="content">
+		<view class="welcome_tip">欢迎使用</view>
+		<view class="eam_name">{{eamName}}</view>
+	</view>
+	<view>
+		<van-cell-group>
+			<!-- 真实姓名 -->
+			<van-field label="真实姓名" name="name" value="{{ registerInfo.name }}" placeholder="请输入用户名" required="true" />
+			<!-- 性别选择 -->
+			<van-cell-group>
+				<van-field readonly is-link value="{{ registerInfo.gender }}" catchtap="onPopupGenderSelect" center clearable placeholder="请选择性别" label="性别" required="true">
+				</van-field>
+			</van-cell-group>
+			<!-- 性别弹出层 -->
+			<van-popup show="{{ popupInfo.showGenderSelect }}" bind:close="onCloseGenderSelect" position="bottom">
+				<van-picker loading="{{false}}" show-toolbar title="选择性别" columns="{{ genderArray }}" bind:cancel="onGenderSelectCancel" bind:confirm="onGenderSelectConfirm" />
+			</van-popup>
+		</van-cell-group>
+	</view>
+</view>
