@@ -1,5 +1,54 @@
 /**index.wxss**/
 .topHeader {
-	padding: 40rpx 20rpx;
+	padding: 20rpx;
 	box-sizing: border-box;
+
+	.userInfo {
+		display: flex;
+		align-items: center;
+		margin: 8rpx;
+
+		.nickName {
+			font-weight: bold;
+		}
+	}
+}
+
+.assetInfo {
+	padding: 28rpx 40rpx;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	background-color: rgba($color: #f8f8f8, $alpha: 1.0);
+	margin: 20rpx;
+	border-radius: 40rpx;
+
+	.assetBlockTitle {
+		font-size: 32rpx;
+		font-weight: bold;
+		margin-bottom: 20rpx;
+	}
+
+	.assetBlock {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-around;
+
+		.asset {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		.assetNumber {
+			font-size: 48rpx;
+			font-weight: bold;
+			margin-bottom: 8rpx;
+		}
+
+		.assetTitle {
+			font-size: 24rpx;
+			color: rgba($color: #000000, $alpha: 0.5);
+		}
+	}
 }

@@ -1,6 +1,20 @@
 <!--index.wxml-->
 <view class="container">
   <view class="topHeader">
-    <view>{{timePrompt}}</view>
+    <!-- 提示语与用户昵称 -->
+    <view class="userInfo">
+      <view class="timePrompt">{{timePrompt}}</view>
+      <view class="nickName">{{userInfo.nickname}}</view>
+    </view>
+    <!-- 当前资产总体情况 -->
+    <view class="assetInfo">
+      <view class="assetBlockTitle">{{assetBlockTitle}}</view>
+      <view class="assetBlock">
+        <view class="asset" wx:for="{{assetInfo}}" wx:key="item">
+          <view class="assetNumber">{{item.number}}</view>
+          <view class="assetTitle">{{item.title}}</view>
+        </view>
+      </view>
+    </view>
   </view>
 </view>

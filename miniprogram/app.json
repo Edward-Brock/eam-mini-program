@@ -15,7 +15,8 @@
     },
     "tabBar": {
         "borderStyle": "white",
-        "selectedColor": "#0000FF",
+        "color": "#a4a4a4",
+        "selectedColor": "#000000",
         "list": [{
             "pagePath": "pages/info/info",
             "text": "扫描"
