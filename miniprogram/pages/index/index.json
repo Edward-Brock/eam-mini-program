@@ -1,3 +1,6 @@
 {
-  "usingComponents": {}
+  "usingComponents": {},
+  "navigationBarBackgroundColor": "#fafafa",
+  "backgroundColorTop": "#fafafa",
+  "backgroundColorBottom": "#fafafa"
 }

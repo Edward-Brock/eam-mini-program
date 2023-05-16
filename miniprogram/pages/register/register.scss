@@ -1,6 +1,10 @@
 /* pages/register/register.wxss */
+page {
+	background: #fafafa;
+}
+
 .header {
-	padding: 80rpx 40rpx;
+	padding: 80rpx 40rpx 0 40rpx;
 	box-sizing: border-box;
 
 	.welcome_tip {
@@ -14,11 +18,14 @@
 	}
 }
 
-.content {
-	padding: 0 20rpx;
-	box-sizing: border-box;
+.weui-form {
+	background: #fafafa;
 }
 
-.submit {
-	margin-top: 80rpx;
+.weui-form__control-area {
+	margin: 20rpx 0;
+}
+
+.weui-form__opr-area {
+	margin-top: 40rpx;
 }

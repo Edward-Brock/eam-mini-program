@@ -5,43 +5,88 @@
 		<view class="eam_name">{{eamName}}</view>
 	</view>
 	<view class="content">
-		<form catchsubmit="formSubmit" catchreset="formReset">
-			<van-cell-group>
-				<!-- 系统昵称 -->
-				<van-field size="large" label="你的昵称" name="nickname" value="{{ registerInfo.nickname }}" placeholder="请输入你喜欢的昵称" required="true" maxlength="64" clearable />
-				<!-- 真实姓名 -->
-				<van-field size="large" label="真实姓名" name="name" value="{{ registerInfo.name }}" placeholder="请输入你的真实姓名" required="true" maxlength="16" clearable />
-				<!-- 性别选择 -->
-				<van-cell-group>
-					<van-field size="large" name="gender" readonly is-link border="{{false}}" value="{{ registerInfo.gender }}" catchtap="onPopupGenderSelect" center placeholder="请选择你的性别" label="性别" required="true">
-					</van-field>
-				</van-cell-group>
-				<!-- 性别弹出层 -->
-				<van-popup show="{{ popupInfo.showGenderSelect }}" bind:close="onGenderSelectCancel" position="bottom">
-					<van-picker loading="{{false}}" show-toolbar title="选择性别" columns="{{ genderArray }}" bind:cancel="onGenderSelectCancel" bind:confirm="onGenderSelectConfirm" />
-				</van-popup>
-				<!-- 出生日期 -->
-				<van-cell-group>
-					<van-field size="large" name="birthday" readonly is-link border="{{false}}" value="{{ registerInfo.birthday }}" catchtap="onPopupBirthdaySelect" center placeholder="请选择你的出生日期" label="出生日期" required="true">
-					</van-field>
-				</van-cell-group>
-				<!-- 出生日期弹出层 -->
-				<van-popup show="{{ popupInfo.showBirthdaySelect }}" bind:close="onBirthdaySelectCancel" position="bottom">
-					<van-datetime-picker type="date" min-date="{{ minBirthdayDate }}" max-date="{{ maxBirthdayDate }}" value="{{ registerInfo.birthday }}" bind:change="onPopupBirthdaySelect" title="请选择出生日期" formatter="{{ formatter }}" bind:cancel="onBirthdaySelectCancel" bind:confirm="onBirthdaySelectConfirm" />
-				</van-popup>
-				<!-- 入职日期 -->
-				<van-cell-group>
-					<van-field size="large" name="joined_date" readonly is-link border="{{false}}" value="{{ registerInfo.joined_date }}" catchtap="onPopupJoinedDateSelect" center placeholder="请选择你的入职日期" label="入职日期" required="true">
-					</van-field>
-				</van-cell-group>
-				<!-- 入职日期弹出层 -->
-				<van-popup show="{{ popupInfo.showJoinedDateSelect }}" bind:close="onJoinedDateSelectCancel" position="bottom">
-					<van-datetime-picker type="date" min-date="{{ minJoinedDate }}" max-date="{{ maxJoinedDate }}" value="{{ registerInfo.birthday }}" bind:change="onPopupJoinedDateSelect" title="请选择入职日期" formatter="{{ formatter }}" bind:cancel="onJoinedDateSelectCancel" bind:confirm="onJoinedDateSelectConfirm" />
-				</van-popup>
-				<!-- 联系方式 -->
-				<van-field size="large" label="联系电话" type="number" name="tel" value="{{ registerInfo.tel }}" placeholder="请输入你的联系电话" required="true" maxlength="11" clearable />
-			</van-cell-group>
-			<button class="submit" type="primary" form-type="submit">提交申请</button>
-		</form>
+		<view class="weui-form">
+			<form catchsubmit="formSubmit" catchreset="formReset">
+				<view class="weui-form__control-area">
+					<view class="weui-cells">
+						<!-- 系统昵称 -->
+						<view class="weui-cell weui-cell_active">
+							<view class="weui-cell__hd"><label class="weui-label">昵称</label></view>
+							<view class="weui-cell__bd">
+								<input name="nickname" class="weui-input" type="nickname" model:value="{{ registerInfo.nickname }}" maxlength="64" placeholder="请输入你喜欢的昵称" bindchange="onNickNameInput" bindnicknamereview="onNickNameInput" />
+							</view>
+						</view>
+						<!-- 真实姓名 -->
+						<view class="weui-cell weui-cell_active">
+							<view class="weui-cell__hd">
+								<label class="weui-label">真实姓名</label>
+							</view>
+							<view class="weui-cell__bd">
+								<input name="name" class="weui-input" value="{{ registerInfo.name }}" maxlength="16" placeholder="请输入你的真实姓名" bindinput="onNameInput" />
+							</view>
+						</view>
+
+						<!-- 性别选择 -->
+						<view class="page-section page-section-gap">
+							<view class="weui-cell weui-cell_active weui-cell_select weui-cell_select-after">
+								<view class="weui-cell__hd">
+									<label class="weui-label">性别</label>
+								</view>
+								<view class="weui-cell__bd">
+									<picker aria-role="combobox" bindchange="genderChange" range="{{genderArray}}" range-key="name" value="{{genderIndex}}">
+										<view class="weui-select">{{genderArray[genderIndex].name}}</view>
+									</picker>
+								</view>
+							</view>
+						</view>
+
+						<!-- 出生日期 -->
+						<view class="weui-cell weui-cell_active">
+							<view class="weui-cell__hd">
+								<view class="weui-label" id="js_date" aria-hidden="true">出生日期</view>
+							</view>
+							<view class="weui-cell__bd">
+								<picker mode="date" aria-role="combobox" aria-labelledby="js_date" value="{{birthday}}" start="1973-01-01" end="{{lastBirthday}}" bindchange="bindBirthdayChange">
+									<view class="weui-input">{{registerInfo.birthday}}</view>
+								</picker>
+							</view>
+						</view>
+
+						<!-- 入职日期 -->
+						<view class="weui-cell weui-cell_active">
+							<view class="weui-cell__hd">
+								<view class="weui-label" id="js_date" aria-hidden="true">入职日期</view>
+							</view>
+							<view class="weui-cell__bd">
+								<picker mode="date" aria-role="combobox" aria-labelledby="js_date" value="{{joinedDate}}" start="2013-07-19" end="{{lastJoinedDate}}" bindchange="bindJoinedDateChange">
+									<view class="weui-input">{{registerInfo.joined_date}}</view>
+								</picker>
+							</view>
+						</view>
+
+						<!-- 联系方式 -->
+						<view class="weui-cell weui-cell_active">
+							<view class="weui-cell__hd">
+								<label class="weui-label">联系电话</label>
+							</view>
+							<view class="weui-cell__bd">
+								<input name="tel" class="weui-input" type="number" value="{{ registerInfo.tel }}" maxlength="11" placeholder="请输入你的联系电话" bindinput="onTelInput" />
+							</view>
+						</view>
+
+					</view>
+				</view>
+				<view class="weui-form__opr-area">
+					<button class="weui-btn weui-btn_primary" form-type="submit">提交审核</button>
+				</view>
+			</form>
+		</view>
+		<view aria-role="alert" class="fadeIn {{hideToast ? 'fadeOut' : ''}}" wx:if="{{toast}}">
+			<view class="weui-mask_transparent"></view>
+			<view class="weui-toast">
+				<i class="weui-icon-success-no-circle weui-icon_toast"></i>
+				<view class="weui-toast__content">已完成</view>
+			</view>
+		</view>
 	</view>
 </view>

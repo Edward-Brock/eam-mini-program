@@ -9,30 +9,21 @@ Page({
     data: {
         // 提示语中的系统名称
         eamName: '',
-        popupInfo: {
-            showGenderSelect: false, // 性别选择弹层控制
-            showBirthdaySelect: false, // 出生日期选择弹层控制
-            showJoinedDateSelect: false // 入职日期选择弹层控制
-        },
-        minBirthdayDate: new Date(1973, 0, 1).getTime(),
-        maxBirthdayDate: new Date().getTime() - 1000 * 60 * 60 * 24 * 365 * 18,
-        minJoinedDate: new Date(2013, 6, 19).getTime(),
-        maxJoinedDate: new Date().getTime(),
-        genderArray: ['男', '女'],
-        formatter(type: string, value: any) {
-            if (type === 'year') {
-                return `${value}年`;
-            }
-            if (type === 'month') {
-                return `${value}月`;
-            }
-            return value;
-        },
+        toast: false,
+        genderIndex: 0,
+        genderArray: [
+            { name: '男', value: 'male' },
+            { name: '女', value: 'female' },
+        ],
+        lastBirthday: '',
+        lastJoinedDate: '',
         // 注册信息
         registerInfo: {
+            openid: '',
+            session_key: '',
             nickname: '',
             name: '',
-            gender: '',
+            gender: 'male',
             birthday: '',
             joined_date: '',
             tel: ''
@@ -44,76 +35,127 @@ Page({
      * @param e 获取到的表单信息
      */
     formSubmit(e: any) {
-        console.log('form发生了submit事件，携带数据为：', e.detail.value)
+        // 将昵称传递给 registerInfo.nickname
+        this.setData({
+            'registerInfo.openid': app.globalData.openid,
+            'registerInfo.session_key': app.globalData.session_key,
+            'registerInfo.nickname': e.detail.value.nickname
+        })
+        // console.log(this.data.registerInfo);
+
+        wx.request({
+            url: app.globalData.baseURL + 'user',
+            method: 'POST',
+            data: {
+                ...this.data.registerInfo
+            },
+            success(res: any) {
+                console.log(res);
+                if (res.data.code === 200 && res.data.state === 'success') {
+                    wx.reLaunch({
+                        url: '/pages/index/index'
+                    })
+                } else {
+                    wx.showToast({
+                        title: '提交审核失败',
+                        icon: 'error',
+                        duration: 2000
+                    })
+                }
+            }
+        })
+
+        this.openToast();
     },
 
-    // 弹出选择性别
-    onPopupGenderSelect() {
-        wx.hideKeyboard();
+    openToast() {
         this.setData({
-            'popupInfo.showGenderSelect': true
+            toast: true,
+        });
+        setTimeout(() => {
+            this.setData({
+                hideToast: true,
+            });
+            setTimeout(() => {
+                this.setData({
+                    toast: false,
+                    hideToast: false,
+                });
+            }, 300);
+        }, 3000);
+    },
+
+    /**
+     * 昵称输入
+     * @param evt 
+     */
+    onNickNameInput(evt: any) {
+        const { value } = evt.detail;
+        this.setData({
+            'registerInfo.nickname': value
         });
     },
 
-    // 弹出选择出生日期
-    onPopupBirthdaySelect() {
-        wx.hideKeyboard();
+    /**
+     * 真实姓名输入
+     * @param evt 
+     */
+    onNameInput(evt: any) {
+        const { value } = evt.detail;
         this.setData({
-            'popupInfo.showBirthdaySelect': true
+            'registerInfo.name': value
         });
     },
 
-    // 弹出选择入职日期
-    onPopupJoinedDateSelect() {
-        wx.hideKeyboard();
-        this.setData({
-            'popupInfo.showJoinedDateSelect': true
-        });
+    /**
+     * 用来计算出生日期，截止时间截止到 16 周岁之前
+     */
+    nowDate(value: string): string {
+        let date = new Date();
+        let year;
+        if (value === 'birthday') {
+            year = date.getFullYear() - 16;
+        } else {
+            year = date.getFullYear();
+        }
+        let month: number | string = date.getMonth() + 1;
+        let day: number | string = date.getDate();
+        month = (month > 9) ? month : ("0" + month);
+        day = (day < 10) ? ("0" + day) : day;
+        return year + "-" + month + "-" + day;
     },
 
-    // 性别选择确认
-    onGenderSelectConfirm(event: any) {
-        const { value } = event.detail;
+    // 性别选择
+    genderChange(e: any) {
+        // console.log('radio发生change事件，携带value值为：', this.data.genderArray[e.detail.value].value)
         this.setData({
-            'registerInfo.gender': value,
-            'popupInfo.showGenderSelect': false
+            genderIndex: e.detail.value,
+            'registerInfo.gender': this.data.genderArray[e.detail.value].value
         })
     },
 
-    // 出生日期选择确认
-    onBirthdaySelectConfirm(event: any) {
+    // 出生日期选择
+    bindBirthdayChange(e: any) {
         this.setData({
-            'registerInfo.birthday': event.detail,
-            'popupInfo.showBirthdaySelect': false
-        })
-    },
-
-    // 入职日期选择确认
-    onJoinedDateSelectConfirm(event: any) {
-        this.setData({
-            'registerInfo.joined_date': event.detail,
-            'popupInfo.showJoinedDateSelect': false
-        })
-    },
-
-    // 性别选择取消关闭按钮
-    onGenderSelectCancel() {
-        this.setData({
-            'popupInfo.showGenderSelect': false
+            'registerInfo.birthday': e.detail.value,
         });
     },
 
-    // 出生日期选择取消关闭按钮
-    onBirthdaySelectCancel() {
+    // 入职日期选择
+    bindJoinedDateChange(e: any) {
         this.setData({
-            'popupInfo.showBirthdaySelect': false
+            'registerInfo.joined_date': e.detail.value,
         });
     },
 
-    // 入职日期选择取消关闭按钮
-    onJoinedDateSelectCancel() {
+    /**
+     * 联系方式输入
+     * @param evt 
+     */
+    onTelInput(evt: any) {
+        const { value } = evt.detail;
         this.setData({
-            'popupInfo.showJoinedDateSelect': false
+            'registerInfo.tel': value
         });
     },
 
@@ -122,6 +164,13 @@ Page({
      */
     onLoad() {
         let that = this;
+        // 调用计算出生日期最晚截止日期，截止到 16 周岁前
+        this.setData({
+            'registerInfo.birthday': this.nowDate('birthday'),
+            'registerInfo.joined_date': this.nowDate('now'),
+            lastBirthday: this.nowDate('birthday'),
+            lastJoinedDate: this.nowDate('now')
+        })
         wx.request({
             url: app.globalData.baseURL + 'option/getOption',
             method: 'GET',
