@@ -21,6 +21,7 @@ Page({
         registerInfo: {
             openid: '',
             session_key: '',
+            avatar: 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0',
             nickname: '',
             name: '',
             gender: 'male',
@@ -55,6 +56,12 @@ Page({
                     wx.reLaunch({
                         url: '/pages/index/index'
                     })
+                } else if (res.data.code === 412 && res.data.state === 'error') {
+                    wx.showToast({
+                        title: '账号等待审核中',
+                        icon: 'error',
+                        duration: 2000
+                    })
                 } else {
                     wx.showToast({
                         title: '提交审核失败',
@@ -83,6 +90,40 @@ Page({
                 });
             }, 300);
         }, 3000);
+    },
+
+    /**
+     * 头像方法
+     * @param e 
+     */
+    onChooseAvatar(e: any) {
+        let that = this;
+        const { avatarUrl } = e.detail  //获取图片临时路径
+
+        this.setData({
+            'registerInfo.avatar': avatarUrl,
+        })
+        // 将获取的图片临时路径传到服务端进行存储并返回调用地址
+        wx.uploadFile({
+            url: app.globalData.baseURL + 'upload/uploadFile',
+            filePath: avatarUrl,
+            name: 'avatar',	//自定义name
+            header: {
+                "Content-Type": "multipart/form-data",
+                'accept': 'application/json',
+            },
+            success(res: any) {
+                // 与 wx.request 不同，wx.uploadFile 返回的是[字符串]，需要自己转为 JSON 格式，如果不转换，直接用点运算符是获取不到后台返回的值的
+                let datas = JSON.parse(res.data)
+                // console.log('头像存储路径：', datas.files[0].path)
+                that.setData({
+                    'registerInfo.avatar': datas.files[0].path
+                })
+            },
+            fail(err) {
+                console.log('err', err);
+            }
+        })
     },
 
     /**

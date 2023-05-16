@@ -29,3 +29,17 @@ page {
 .weui-form__opr-area {
 	margin-top: 40rpx;
 }
+
+.avatar-wrapper {
+	width: 120rpx;
+	height: 120rpx;
+	padding: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.avatar {
+	width: 80rpx;
+	height: 80rpx;
+}
