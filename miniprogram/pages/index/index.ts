@@ -26,7 +26,7 @@ Page({
         this.setData({
           timePrompt: (this as any).getTimePromptMethod(),
           userInfo: res.data,
-          'userInfo.nickname': '，' + res.data.nickname + '！'
+          'userInfo.nickname_temp': '，' + res.data.nickname + '！'
         })
       }
     }

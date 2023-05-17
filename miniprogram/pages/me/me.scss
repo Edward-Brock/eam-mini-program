@@ -1,1 +1,91 @@
 /* pages/me/me.wxss */
+page {
+	background: #fafafa;
+}
+
+image {
+	height: 100rpx
+}
+
+.weui-cells .demo_badge_tips {
+	font-size: 34rpx;
+	vertical-align: middle
+}
+
+.weui-cells .demo_badge_tips+.weui-badge {
+	margin-left: 10rpx;
+	margin-right: 10rpx
+}
+
+.weui-cells::before {
+	border-top: 0 solid var(--weui-FG-3);
+}
+
+.demo_badge_cells {
+	margin-top: 0;
+}
+
+.avatar {
+	height: 120rpx;
+	width: 120rpx;
+}
+
+.demo_badge_cells .weui-cell__hd {
+	position: relative;
+	margin-right: 40rpx
+}
+
+.demo_badge_cells .weui-cell__hd image {
+	width: 120rpx;
+	height: 120rpx;
+	display: block
+}
+
+.demo_badge_cells .weui-cell__hd .weui-badge {
+	position: absolute;
+	top: -.4em;
+	right: -.4em
+}
+
+.demo_badge_cells .weui-cell__bd .demo_badge_title {
+	vertical-align: middle
+}
+
+.demo_badge_cells .weui-cell__bd .demo_badge_title+.weui-badge {
+	margin-left: 10rpx
+}
+
+.demo_badge_cells .weui-cell__bd .demo_badge_desc {
+	font-size: 26rpx;
+	color: #888
+}
+
+.weui-cell__hd {
+	font-size: 0
+}
+
+.weui-cell__hd image {
+	margin-right: 32rpx;
+	vertical-align: middle;
+	width: 40rpx;
+	height: 40rpx
+}
+
+.avatar-wrapper-header {
+	width: 100rpx;
+	height: 100rpx;
+	border-radius: 8rpx;
+	overflow: hidden;
+}
+
+.nicknameTag {
+	display: flex;
+	align-items: baseline;
+}
+
+.demo_badge_title {
+	font-size: 36rpx;
+	font-weight: bold;
+	margin-bottom: 8rpx;
+	margin-right: 20rpx;
+}

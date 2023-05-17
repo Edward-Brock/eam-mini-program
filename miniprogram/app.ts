@@ -12,7 +12,11 @@ App<IAppOption>({
     // 用户 session key
     session_key: '',
     // 用户身份信息
-    userInfo: {}
+    userInfo: {},
+    // 默认显示的用户头像
+    avatar: 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0',
+    // 是否已通过登录校验
+    login_verification: false
   },
   onLaunch() {
     this.getWechatLogin();
@@ -74,6 +78,11 @@ App<IAppOption>({
             // console.log('数据获取成功->', res.data);
             that.globalData.checkLoginStateFlag = true;
             that.globalData.userInfo = res.data;
+            // 将登录验证存储至本地缓存中
+            wx.setStorage({
+              key: "login_verification",
+              data: true
+            })
             if (that.userInfoReadyCallback) {
               that.userInfoReadyCallback(res);
             }

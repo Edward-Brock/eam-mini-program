@@ -6,7 +6,8 @@ interface IAppOption {
     baseURL?: string,
     checkLoginStateFlag?: boolean,
     openid?: string,
-    session_key?: string
+    session_key?: string,
+    avatar?: '',
   },
   getWechatLogin?: WechatMiniprogram.getWechatLogin,
   getUserInfo?: WechatMiniprogram.getUserInfo,

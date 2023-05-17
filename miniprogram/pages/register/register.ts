@@ -21,7 +21,10 @@ Page({
         registerInfo: {
             openid: '',
             session_key: '',
-            avatar: 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0',
+            // 本地临时头像
+            fileAvatar: app.globalData.avatar,
+            // 向服务器传值的真实头像地址
+            avatar: '',
             nickname: '',
             name: '',
             gender: 'male',
@@ -53,6 +56,11 @@ Page({
             success(res: any) {
                 console.log(res);
                 if (res.data.code === 200 && res.data.state === 'success') {
+                    // 将登录验证存储至本地缓存中
+                    wx.setStorage({
+                        key: "login_verification",
+                        data: true
+                    })
                     wx.reLaunch({
                         url: '/pages/index/index'
                     })
@@ -101,7 +109,7 @@ Page({
         const { avatarUrl } = e.detail  //获取图片临时路径
 
         this.setData({
-            'registerInfo.avatar': avatarUrl,
+            'registerInfo.fileAvatar': avatarUrl,
         })
         // 将获取的图片临时路径传到服务端进行存储并返回调用地址
         wx.uploadFile({
@@ -118,6 +126,11 @@ Page({
                 // console.log('头像存储路径：', datas.files[0].path)
                 that.setData({
                     'registerInfo.avatar': datas.files[0].path
+                })
+                wx.showToast({
+                    title: '头像保存成功',
+                    icon: 'success',
+                    duration: 2000
                 })
             },
             fail(err) {

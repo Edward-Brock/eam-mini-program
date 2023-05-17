@@ -1,6 +1,19 @@
 <!--pages/me/me.wxml-->
 <view class="container">
+	<view class="weui-cells demo_badge_cells">
+		<view aria-labelledby="b1_txt1" aria-describedby="b1_n1" class="weui-cell weui-cell_active" aria-role="option">
+			<view class="weui-cell__hd avatar" aria-hidden="true">
+				<image class="avatar-wrapper-header" src="{{userInfo.avatar}}"></image>
+			</view>
+			<view class="weui-cell__bd" aria-hidden="true" id="b1_txt1">
+				<view class="nicknameTag">
+					<view class="demo_badge_title">{{userInfo.nickname}}</view>
+					<van-tag plain type="primary">{{userInfo.user_type}}</van-tag>
+				</view>
+				<view class="demo_badge_desc">{{userInfo.name}}</view>
+			</view>
+		</view>
+	</view>
 	<view class="content">
-
 	</view>
 </view>

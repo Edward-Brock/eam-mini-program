@@ -22,11 +22,11 @@ module.exports = Behavior({
 			var h = date.getHours();
 			console.log("现在的时间是 " + h + " 点")
 
-			if (0 < h && h <= 6) {
+			if (0 <= h && h <= 6) {
 				that.setData({
 					nowTime: '凌晨好'
 				})
-			} else if (6 <= h && h < 11) {
+			} else if (6 <= h && h <= 11) {
 				that.setData({
 					nowTime: '早上好'
 				})
@@ -45,9 +45,14 @@ module.exports = Behavior({
 					nowTime: '傍晚好'
 				})
 			}
-			else {
+			else if (18 <= h && h <= 22) {
 				that.setData({
 					nowTime: '晚上好'
+				})
+			}
+			else {
+				that.setData({
+					nowTime: '深夜了'
 				})
 			}
 			return that.data.nowTime;

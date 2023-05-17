@@ -1,3 +1,9 @@
 {
-    "usingComponents": {}
+    "usingComponents": {
+        "van-tag": "@vant/weapp/tag/index"
+    },
+    "navigationBarTitleText": "个人中心",
+    "navigationBarBackgroundColor": "#ffffff",
+    "backgroundColorTop": "#ffffff",
+    "backgroundColorBottom": "#fafafa"
 }
