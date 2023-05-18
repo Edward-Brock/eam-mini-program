@@ -42,7 +42,6 @@ App<IAppOption>({
              */
             // console.log(res);
             that.globalData.openid = res.data.openid
-            that.globalData.session_key = res.data.session_key
             await that.getUserInfo();
           }
         })
@@ -68,11 +67,11 @@ App<IAppOption>({
             wx.showToast({
               title: '未授权用户',
               icon: 'error',
-              duration: 3000,
-              mask: true,
+              duration: 2000,
+              mask: true
             })
             wx.redirectTo({
-              url: '/pages/register/register'
+              url: '/pages/register/register?type=register'
             })
           } else {
             // console.log('数据获取成功->', res.data);
@@ -82,6 +81,11 @@ App<IAppOption>({
             wx.setStorage({
               key: "login_verification",
               data: true
+            })
+            // 将用户信息存储至本地缓存中
+            wx.setStorage({
+              key: "userInfo",
+              data: res.data
             })
             if (that.userInfoReadyCallback) {
               that.userInfoReadyCallback(res);

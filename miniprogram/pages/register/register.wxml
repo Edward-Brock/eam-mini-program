@@ -1,6 +1,6 @@
 <!--pages/register/register.wxml-->
 <view class="container">
-	<view class="header">
+	<view class="header" wx:if="{{registerDisplay}}">
 		<view class="welcome_tip">欢迎使用</view>
 		<view class="eam_name">{{eamName}}</view>
 	</view>
@@ -13,14 +13,14 @@
 						<view class="weui-cell weui-cell_active">
 							<view class="weui-cell__hd"><label class="weui-label">头像</label></view>
 							<button class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
-								<image class="avatar" src="{{registerInfo.fileAvatar}}"></image>
+								<image class="avatar" src="{{editUserInfo.fileAvatar}}"></image>
 							</button>
 						</view>
 						<!-- 系统昵称 -->
 						<view class="weui-cell weui-cell_active">
 							<view class="weui-cell__hd"><label class="weui-label">昵称</label></view>
 							<view class="weui-cell__bd">
-								<input name="nickname" class="weui-input" type="nickname" model:value="{{ registerInfo.nickname }}" maxlength="64" placeholder="请输入你喜欢的昵称" bindchange="onNickNameInput" bindnicknamereview="onNickNameInput" />
+								<input name="nickname" class="weui-input" type="nickname" model:value="{{ editUserInfo.nickname }}" maxlength="64" placeholder="请输入你喜欢的昵称" bindchange="onNickNameInput" bindnicknamereview="onNickNameInput" />
 							</view>
 						</view>
 						<!-- 真实姓名 -->
@@ -29,7 +29,7 @@
 								<label class="weui-label">真实姓名</label>
 							</view>
 							<view class="weui-cell__bd">
-								<input name="name" class="weui-input" value="{{ registerInfo.name }}" maxlength="16" placeholder="请输入你的真实姓名" bindinput="onNameInput" />
+								<input name="name" class="weui-input" value="{{ editUserInfo.name }}" maxlength="16" placeholder="请输入你的真实姓名" bindinput="onNameInput" />
 							</view>
 						</view>
 
@@ -52,7 +52,7 @@
 							</view>
 							<view class="weui-cell__bd">
 								<picker mode="date" aria-role="combobox" aria-labelledby="js_date" value="{{birthday}}" start="1973-01-01" end="{{lastBirthday}}" bindchange="bindBirthdayChange">
-									<view class="weui-input">{{registerInfo.birthday}}</view>
+									<view class="weui-input">{{editUserInfo.birthday}}</view>
 								</picker>
 							</view>
 						</view>
@@ -64,7 +64,7 @@
 							</view>
 							<view class="weui-cell__bd">
 								<picker mode="date" aria-role="combobox" aria-labelledby="js_date" value="{{joinedDate}}" start="2013-07-19" end="{{lastJoinedDate}}" bindchange="bindJoinedDateChange">
-									<view class="weui-input">{{registerInfo.joined_date}}</view>
+									<view class="weui-input">{{editUserInfo.joined_date}}</view>
 								</picker>
 							</view>
 						</view>
@@ -75,23 +75,16 @@
 								<label class="weui-label">联系电话</label>
 							</view>
 							<view class="weui-cell__bd">
-								<input name="tel" class="weui-input" type="number" value="{{ registerInfo.tel }}" maxlength="11" placeholder="请输入你的联系电话" bindinput="onTelInput" />
+								<input name="tel" class="weui-input" type="number" value="{{ editUserInfo.tel }}" maxlength="11" placeholder="请输入你的联系电话" bindinput="onTelInput" />
 							</view>
 						</view>
 
 					</view>
 				</view>
 				<view class="weui-form__opr-area">
-					<button class="weui-btn weui-btn_primary" form-type="submit">提交审核</button>
+					<button class="weui-btn weui-btn_primary" form-type="submit">{{btnText}}</button>
 				</view>
 			</form>
-		</view>
-		<view aria-role="alert" class="fadeIn {{hideToast ? 'fadeOut' : ''}}" wx:if="{{toast}}">
-			<view class="weui-mask_transparent"></view>
-			<view class="weui-toast">
-				<i class="weui-icon-success-no-circle weui-icon_toast"></i>
-				<view class="weui-toast__content">已完成</view>
-			</view>
 		</view>
 	</view>
 </view>

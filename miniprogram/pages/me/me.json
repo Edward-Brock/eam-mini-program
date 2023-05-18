@@ -2,6 +2,7 @@
     "usingComponents": {
         "van-tag": "@vant/weapp/tag/index"
     },
+    "enablePullDownRefresh": true,
     "navigationBarTitleText": "个人中心",
     "navigationBarBackgroundColor": "#ffffff",
     "backgroundColorTop": "#ffffff",

@@ -7,12 +7,26 @@ Page({
      * 页面的初始数据
      */
     data: {
+        // 页面内可以更改的编辑数据
         userInfo: {
             nickname: '',
             name: '',
             avatar: app.globalData.avatar,
             user_type: ''
-        },
+        }
+    },
+
+    /**
+     * 修改用户信息
+     */
+    onEditUserInfo() {
+        wx.navigateTo({
+            url: '/pages/register/register?type=update',
+            success: function (res) {
+                // 通过eventChannel向被打开页面传送数据
+                res.eventChannel.emit('acceptDataFromOpenerPage', wx.getStorageSync('userInfo'))
+            }
+        })
     },
 
     /**
@@ -22,42 +36,61 @@ Page({
      */
     getUserInfo() {
         let that = this;
-        if (app.globalData.checkLoginStateFlag) {
-            let userInfo: any = app.globalData.userInfo
-            // 头像拼接
-            userInfo.avatar = app.globalData.baseURL + userInfo.avatar;
-            // 用户类型标签替换
-            switch (userInfo.user_type) {
-                case 'root':
-                    userInfo.user_type = "超级管理员"
-                    break;
+        wx.request({
+            url: app.globalData.baseURL + 'user/' + wx.getStorageSync('userInfo').openid,
+            method: "GET",
+            success(res: any) {
+                // console.log('获取用户信息：', res.data);
+                // 将用户信息存储至本地缓存中
+                wx.setStorage({
+                    key: "userInfo",
+                    data: res.data
+                })
+                // 将登录验证存储至本地缓存中
+                wx.setStorage({
+                    key: "login_verification",
+                    data: true
+                })
+                that.setData({
+                    userInfo: res.data,
+                    'userInfo.avatar': app.globalData.baseURL + wx.getStorageSync('userInfo').avatar
+                })
+                // 用户类型标签替换
+                switch (that.data.userInfo.user_type) {
+                    case 'root':
+                        that.setData({
+                            'userInfo.user_type': '超级管理员'
+                        })
+                        break;
 
-                case 'admin':
-                    userInfo.user_type = "管理员"
-                    break;
+                    case 'admin':
+                        that.setData({
+                            'userInfo.user_type': '管理员'
+                        })
+                        break;
 
-                case 'staff':
-                    userInfo.user_type = "员工"
-                    break;
+                    case 'staff':
+                        that.setData({
+                            'userInfo.user_type': '员工'
+                        })
+                        break;
 
-                default:
-                    userInfo.user_type = "NONE"
-                    break;
+                    default:
+                        that.setData({
+                            'userInfo.user_type': 'NONE'
+                        })
+                        break;
+                }
+                wx.stopPullDownRefresh();
             }
-            that.setData({
-                userInfo
-            })
-            this.setData({
-
-            })
-        }
+        })
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad() {
-        this.getUserInfo()
+
     },
 
     /**
@@ -71,7 +104,7 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow() {
-
+        this.getUserInfo();
     },
 
     /**
@@ -92,7 +125,7 @@ Page({
      * 页面相关事件处理函数--监听用户下拉动作
      */
     onPullDownRefresh() {
-
+        this.getUserInfo();
     },
 
     /**

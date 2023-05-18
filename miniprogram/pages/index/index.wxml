@@ -4,7 +4,6 @@
     <!-- 提示语与用户昵称 -->
     <view class="userInfo">
       <view class="timePrompt">{{timePrompt}}</view>
-      <view class="nickName">{{userInfo.nickname_temp}}</view>
     </view>
     <!-- 当前资产总体情况 -->
     <view class="assetInfo">

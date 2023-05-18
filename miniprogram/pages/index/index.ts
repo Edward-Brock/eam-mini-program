@@ -8,8 +8,8 @@ Page({
   data: {
     // 时间提示语
     timePrompt: '',
-    // 当前用户昵称
-    userInfo: '',
+    // 当前用户信息
+    userInfo: {},
     // 资产总览标题
     assetBlockTitle: '资产总览',
     // 资产总信息
@@ -21,18 +21,47 @@ Page({
   },
 
   onLoad() {
-    if (!app.globalData.checkLoginStateFlag) {
-      app.userInfoReadyCallback = (res: any) => {
-        this.setData({
-          timePrompt: (this as any).getTimePromptMethod(),
-          userInfo: res.data,
-          'userInfo.nickname_temp': '，' + res.data.nickname + '！'
-        })
-      }
-    }
+    this.getUserInfo();
     this.getAssetNumber();
     this.getAssetPrice();
     this.getAssetState();
+  },
+
+  /**
+   * 获取当前用户信息
+   */
+  getUserInfo() {
+    let that = this;
+    wx.request({
+      url: app.globalData.baseURL + 'user/' + wx.getStorageSync('userInfo').openid,
+      method: "GET",
+      success(res: any) {
+        // console.log('获取用户信息：', res);
+        if (res.data === '') {
+          wx.removeStorage({
+            key: 'userInfo'
+          })
+          that.setData({
+            'res.data.nickname': '未授权用户'
+          })
+        }
+        // 将用户信息存储至本地缓存中
+        wx.setStorage({
+          key: "userInfo",
+          data: res.data
+        })
+        // 将登录验证存储至本地缓存中
+        wx.setStorage({
+          key: "login_verification",
+          data: true
+        })
+        that.setData({
+          timePrompt: (that as any).getTimePromptMethod() + `，${res.data.nickname}！`,
+          userInfo: res.data
+        })
+        wx.stopPullDownRefresh();
+      }
+    })
   },
 
   /**
@@ -87,5 +116,12 @@ Page({
         })
       }
     })
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh() {
+    this.getUserInfo();
   }
 })

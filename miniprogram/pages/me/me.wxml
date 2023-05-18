@@ -1,7 +1,7 @@
 <!--pages/me/me.wxml-->
 <view class="container">
 	<view class="weui-cells demo_badge_cells">
-		<view aria-labelledby="b1_txt1" aria-describedby="b1_n1" class="weui-cell weui-cell_active" aria-role="option">
+		<view aria-labelledby="b1_txt1" aria-describedby="b1_n1" class="weui-cell weui-cell_active" aria-role="option" catchtap="onEditUserInfo">
 			<view class="weui-cell__hd avatar" aria-hidden="true">
 				<image class="avatar-wrapper-header" src="{{userInfo.avatar}}"></image>
 			</view>
