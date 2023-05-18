@@ -3,6 +3,7 @@
         "van-tag": "@vant/weapp/tag/index"
     },
     "enablePullDownRefresh": true,
+    "backgroundTextStyle": "dark",
     "navigationBarTitleText": "个人中心",
     "navigationBarBackgroundColor": "#ffffff",
     "backgroundColorTop": "#ffffff",

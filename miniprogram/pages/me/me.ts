@@ -30,6 +30,21 @@ Page({
     },
 
     /**
+     * 针对传入的日期进行格式化，将 T16:00:00.000Z 转换为正常时间
+     * 2019-11-06T16:00:00.000Z --> 2019-11-06
+     * @param datetime 
+     */
+    formateDate(datetime: string | number | Date) {
+        // let  = "2019-11-06T16:00:00.000Z"
+        function addDateZero(num: string | number) {
+            return (num < 10 ? "0" + num : num);
+        }
+        let d = new Date(datetime);
+        let formatdatetime = d.getFullYear() + '-' + addDateZero(d.getMonth() + 1) + '-' + addDateZero(d.getDate() + 1);
+        return formatdatetime;
+    },
+
+    /**
      * 通过 OPENID 获取当前用户个人信息
      * 并针对头像进行拼接
      * 替换用户类型标签
@@ -37,10 +52,10 @@ Page({
     getUserInfo() {
         let that = this;
         wx.request({
-            url: app.globalData.baseURL + 'user/' + wx.getStorageSync('userInfo').openid,
+            url: app.globalData.baseURL + 'user/' + app.globalData.openid,
             method: "GET",
             success(res: any) {
-                // console.log('获取用户信息：', res.data);
+                console.log('获取用户信息：', res.data);
                 // 将用户信息存储至本地缓存中
                 wx.setStorage({
                     key: "userInfo",
@@ -55,6 +70,7 @@ Page({
                     userInfo: res.data,
                     'userInfo.avatar': app.globalData.baseURL + wx.getStorageSync('userInfo').avatar
                 })
+
                 // 用户类型标签替换
                 switch (that.data.userInfo.user_type) {
                     case 'root':

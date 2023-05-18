@@ -79,7 +79,7 @@ Page({
                             data: res.data
                         })
                         wx.reLaunch({
-                            url: '/pages/index/index'
+                            url: '/pages/me/me'
                         })
                     } else if (res.data.code === 412 && res.data.state === 'error') {
                         wx.showToast({
@@ -288,7 +288,7 @@ Page({
             // 更新用户信息
             const eventChannel = this.getOpenerEventChannel()
             eventChannel.on('acceptDataFromOpenerPage', function (data) {
-                // console.log(data);
+                console.log(data);
                 wx.setNavigationBarTitle({
                     title: '个人资料'
                 })

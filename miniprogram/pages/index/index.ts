@@ -9,7 +9,9 @@ Page({
     // 时间提示语
     timePrompt: '',
     // 当前用户信息
-    userInfo: {},
+    userInfo: {
+      nickname: ''
+    },
     // 资产总览标题
     assetBlockTitle: '资产总览',
     // 资产总信息
@@ -37,12 +39,19 @@ Page({
       method: "GET",
       success(res: any) {
         // console.log('获取用户信息：', res);
-        if (res.data === '') {
+        // 如果未获取到用户信息
+        if (res.data.length == 0) {
+          // console.log("未获取到用户信息");
           wx.removeStorage({
             key: 'userInfo'
           })
+          // 将登录验证存储至本地缓存中
+          wx.setStorage({
+            key: "login_verification",
+            data: false
+          })
           that.setData({
-            'res.data.nickname': '未授权用户'
+            'userInfo.nickname': '未授权用户'
           })
         }
         // 将用户信息存储至本地缓存中
@@ -56,7 +65,7 @@ Page({
           data: true
         })
         that.setData({
-          timePrompt: (that as any).getTimePromptMethod() + `，${res.data.nickname}！`,
+          timePrompt: (that as any).getTimePromptMethod() + `，${that.data.userInfo.nickname}！`,
           userInfo: res.data
         })
         wx.stopPullDownRefresh();
@@ -123,5 +132,13 @@ Page({
    */
   onPullDownRefresh() {
     this.getUserInfo();
-  }
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow() {
+    // 页面为注册用户时隐藏返回首页按钮
+    this.getUserInfo();
+  },
 })

@@ -39,7 +39,7 @@
 								<label class="weui-label">性别</label>
 							</view>
 							<view class="weui-cell__bd">
-								<picker aria-role="combobox" bindchange="genderChange" range="{{genderArray}}" range-key="name" value="{{genderIndex}}">
+								<picker aria-role="combobox" bindchange="genderChange" range="{{genderArray}}" range-key="name" value="{{genderIndex}}"  disabled="{{!registerDisplay}}">
 									<view class="weui-select">{{genderArray[genderIndex].name}}</view>
 								</picker>
 							</view>
@@ -51,7 +51,7 @@
 								<view class="weui-label" id="js_date" aria-hidden="true">出生日期</view>
 							</view>
 							<view class="weui-cell__bd">
-								<picker mode="date" aria-role="combobox" aria-labelledby="js_date" value="{{birthday}}" start="1973-01-01" end="{{lastBirthday}}" bindchange="bindBirthdayChange">
+								<picker mode="date" aria-role="combobox" aria-labelledby="js_date" value="{{birthday}}" start="1973-01-01" end="{{lastBirthday}}" bindchange="bindBirthdayChange" disabled="{{!registerDisplay}}">
 									<view class="weui-input">{{editUserInfo.birthday}}</view>
 								</picker>
 							</view>
@@ -63,7 +63,7 @@
 								<view class="weui-label" id="js_date" aria-hidden="true">入职日期</view>
 							</view>
 							<view class="weui-cell__bd">
-								<picker mode="date" aria-role="combobox" aria-labelledby="js_date" value="{{joinedDate}}" start="2013-07-19" end="{{lastJoinedDate}}" bindchange="bindJoinedDateChange">
+								<picker mode="date" aria-role="combobox" aria-labelledby="js_date" value="{{joinedDate}}" start="2013-07-19" end="{{lastJoinedDate}}" bindchange="bindJoinedDateChange" disabled="{{!registerDisplay}}">
 									<view class="weui-input">{{editUserInfo.joined_date}}</view>
 								</picker>
 							</view>
