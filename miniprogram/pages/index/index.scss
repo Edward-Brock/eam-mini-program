@@ -58,3 +58,54 @@ page {
 		}
 	}
 }
+
+.allAssetTitle {
+	font-size: 48rpx;
+	font-weight: bold;
+	padding-top: 40rpx;
+	box-sizing: border-box;
+}
+
+.assetList {
+	margin: 40rpx 0;
+	padding: 20rpx;
+	box-sizing: border-box;
+	border-radius: 8rpx;
+	background: rgba($color: #ffffff, $alpha: 1);
+	border: 2rpx solid rgba($color: #eaeaea, $alpha: 0.25);
+	box-shadow: 0 10rpx 20rpx rgba($color: #eaeaea, $alpha: 0.25);
+
+	.assetTopSubTitle {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	.brand {
+		font-size: 28rpx;
+		color: rgba($color: #000000, $alpha: 0.5)
+	}
+
+	.name {
+		font-size: 32rpx;
+		font-weight: bold;
+		margin-bottom: 20rpx;
+	}
+
+	.description {
+		font-size: 32rpx;
+		color: rgba($color: #000000, $alpha: 0.75);
+		overflow: hidden;
+		text-overflow: ellipsis;
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical
+	}
+
+	.code {
+		margin-top: 20rpx;
+		font-size: 28rpx;
+		color: rgba($color: #000000, $alpha: 0.25);
+	}
+}

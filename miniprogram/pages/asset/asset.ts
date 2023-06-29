@@ -1,32 +1,26 @@
-// pages/info/info.ts
+// pages/asset/asset.ts
 Page({
-
-    onPullScan() {
-        let _ = this;
-        wx.scanCode({
-            onlyFromCamera: false,
-            scanType: ['barCode', 'qrCode', 'datamatrix', 'pdf417'],
-            success(res: any) {
-                console.log(res.result)
-                _.setData({
-                    scanOutPutInfo: res.scanType
-                })
-            }
-        })
-    },
 
     /**
      * 页面的初始数据
      */
     data: {
-        scanOutPutInfo: []
+        asset: '',
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad() {
-
+        let that = this;
+        const eventChannel = this.getOpenerEventChannel();
+        // 监听acceptDataFromOpenerPage事件，获取上一页面通过eventChannel传送到当前页面的数据F
+        eventChannel.on('indexToAssetPages', function (res) {
+            // console.log('资产获取成功：', res.data);
+            that.setData({
+                asset: res.data
+            })
+        })
     },
 
     /**

@@ -20,13 +20,38 @@ Page({
       { number: 0, title: '资产总金额' },
       { number: 0, title: '资产投入使用量' }
     ],
+    // 获取的当前所有资产信息
+    allAssetInfo: []
   },
 
-  onLoad() {
+  /**
+   * 获取当前点击的资产详细信息并传值给 asset 页面
+   * @param e 
+   */
+  onAssetInfo(e: any) {
+    // console.log(e.currentTarget.dataset.asset);
+    wx.navigateTo({
+      url: '/pages/asset/asset',
+      success: function (res) {
+        // 通过eventChannel向被打开页面传送数据
+        res.eventChannel.emit('indexToAssetPages', { data: e.currentTarget.dataset.asset })
+      }
+    })
+  },
+
+  /**
+   * 需要初次加载、进入页面重新加载的所有方法写入到此方法中
+   */
+  loadFunctions() {
     this.getUserInfo();
     this.getAssetNumber();
     this.getAssetPrice();
     this.getAssetState();
+    this.getAllAssetsInfo();
+  },
+
+  onLoad() {
+    this.loadFunctions();
   },
 
   /**
@@ -81,6 +106,9 @@ Page({
     wx.request({
       url: app.globalData.baseURL + 'asset/getAssetNumber',
       method: 'GET',
+      data: {
+        delete_flag: false
+      },
       success(res: any) {
         // console.log(res);
         that.setData({
@@ -108,7 +136,7 @@ Page({
   },
 
   /**
-   * 获取当前资产
+   * 获取当前已投入资产数量
    */
   getAssetState() {
     let that = this;
@@ -128,17 +156,60 @@ Page({
   },
 
   /**
+   * 获取当前全部资产，排除已删除资产
+   */
+  getAllAssetsInfo() {
+    let that = this;
+    wx.request({
+      url: app.globalData.baseURL + 'asset/getAssetNumber',
+      method: 'GET',
+      data: {
+        delete_flag: false
+      },
+      success(res: any) {
+        // console.log('全部资产信息', res.data.data[0]);
+        for (const key in res.data.data[0]) {
+          // console.log(res.data.data[0][key].state);
+          switch (res.data.data[0][key].state) {
+            case 'unused':
+              res.data.data[0][key].state = '未使用'
+              break;
+
+            case 'using':
+              res.data.data[0][key].state = '使用中'
+              break;
+
+            case 'deactivate':
+              res.data.data[0][key].state = '已停用'
+              break;
+
+            case 'wreck':
+              res.data.data[0][key].state = '报废'
+              break;
+
+            default:
+              res.data.data[0][key].state = '未知'
+              break;
+          }
+        }
+        that.setData({
+          allAssetInfo: res.data.data[0]
+        })
+      }
+    })
+  },
+
+  /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh() {
-    this.getUserInfo();
+    this.loadFunctions();
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    // 页面为注册用户时隐藏返回首页按钮
-    this.getUserInfo();
+    this.loadFunctions();
   },
 })

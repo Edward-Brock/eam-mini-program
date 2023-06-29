@@ -16,4 +16,23 @@
       </view>
     </view>
   </view>
+
+  <view class="content">
+    <!-- 全部资产显示 -->
+    <view class="allAssetTitle">全部资产</view>
+    <view class="allAssetDisplay">
+      <view class="assetList" wx:for="{{allAssetInfo}}" wx:for-item="assetInfo" wx:for-index="assetIndex" wx:key="assetIndex" catchtap="onAssetInfo" data-asset="{{assetInfo}}">
+        <view class="assetTopSubTitle">
+          <view class="brand">{{assetInfo.type}} · {{assetInfo.brand}}</view>
+          <view class="brand">{{assetInfo.state}}</view>
+        </view>
+        <view class="name">
+          {{assetInfo.name}}
+          <van-tag type="danger" wx:if="{{assetInfo.secret_flag}}">涉密</van-tag>
+        </view>
+        <rich-text style="word-wrap: break-word;word-break: break-all;" nodes="{{assetInfo.description}}"></rich-text>
+        <view class="code">{{assetInfo.code}}</view>
+      </view>
+    </view>
+  </view>
 </view>

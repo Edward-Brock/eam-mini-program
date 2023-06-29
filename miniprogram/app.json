@@ -2,8 +2,8 @@
     "pages": [
         "pages/index/index",
         "pages/me/me",
-        "pages/info/info",
-        "pages/register/register"
+        "pages/register/register",
+        "pages/asset/asset"
     ],
     "window": {
         "backgroundTextStyle": "light",
@@ -16,9 +16,6 @@
         "color": "#aeaeae",
         "selectedColor": "#000000",
         "list": [{
-            "pagePath": "pages/info/info",
-            "text": "扫描"
-        }, {
             "pagePath": "pages/index/index",
             "text": "SAIENSI"
         }, {

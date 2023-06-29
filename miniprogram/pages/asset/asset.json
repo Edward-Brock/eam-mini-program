@@ -1,0 +1,8 @@
+{
+    "usingComponents": {},
+    "backgroundTextStyle": "dark",
+    "navigationBarTitleText": "资产详情",
+    "navigationBarBackgroundColor": "#fafafa",
+    "backgroundColorTop": "#fafafa",
+    "backgroundColorBottom": "#fafafa"
+}

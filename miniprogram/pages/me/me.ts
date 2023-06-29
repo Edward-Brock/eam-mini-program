@@ -55,7 +55,7 @@ Page({
             url: app.globalData.baseURL + 'user/' + app.globalData.openid,
             method: "GET",
             success(res: any) {
-                console.log('获取用户信息：', res.data);
+                // console.log('获取用户信息：', res.data);
                 // 将用户信息存储至本地缓存中
                 wx.setStorage({
                     key: "userInfo",

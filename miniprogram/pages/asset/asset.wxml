@@ -1,0 +1,39 @@
+<!--pages/asset/asset.wxml-->
+<view>
+	<view class="code">
+		{{asset.code}}
+	</view>
+	<view class="assetGroup">
+		<view class="group">
+			<view class="title font-16">资产类型</view>
+			<view class="content">{{asset.type}}</view>
+		</view>
+		<view class="group">
+			<view class="title">资产品牌</view>
+			<view class="content">{{asset.brand}}</view>
+		</view>
+		<view class="group">
+			<view class="title">资产名称</view>
+			<view class="content">{{asset.name}}</view>
+		</view>
+		<view class="group">
+			<view class="title">涉密性质</view>
+			<view class="content">{{asset.secret_flag ? "涉密" : "非涉密"}}</view>
+		</view>
+		<view class="group">
+			<view class="title">资产价格</view>
+			<view class="content">
+				<sub wx:if="{{asset.price}}">￥</sub>
+				{{asset.price}}
+			</view>
+		</view>
+		<view class="group">
+			<view class="title">资产状态</view>
+			<view class="content">{{asset.state}}</view>
+		</view>
+	</view>
+	<view class="group">
+		<view class="title">资产描述</view>
+		<rich-text nodes="{{asset.description}}" class="content"></rich-text>
+	</view>
+</view>
