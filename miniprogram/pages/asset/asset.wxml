@@ -36,9 +36,9 @@
 			<view class="content">{{asset.state}}</view>
 		</view>
 	</view>
-	<view class="group">
+	<view class="assetContent">
 		<view class="title">资产描述</view>
-		<rich-text nodes="{{asset.description}}" class="content"></rich-text>
+		<rich-text nodes="{{asset.description ? asset.description : '暂无资产描述'}}" class="content"></rich-text>
 	</view>
 	<view class="update_time">更新时间：{{asset.update_time}}</view>
 </view>

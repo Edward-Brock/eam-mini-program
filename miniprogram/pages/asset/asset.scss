@@ -4,11 +4,9 @@
 page {
 	--mb-8: 8rpx;
 	--mb-16: 16rpx;
-}
 
-page {
-	background: #fafafa;
-	padding: 0 40rpx;
+	background-color: #fafafa;
+	padding: 0 20rpx;
 	box-sizing: border-box;
 }
 
@@ -18,6 +16,10 @@ page {
 	align-items: center;
 	justify-content: center;
 	margin: 40rpx 0;
+	padding: 20rpx;
+	box-sizing: border-box;
+	background: rgba($color: #ffffff, $alpha: 1.0);
+	border-radius: 16rpx;
 }
 
 .assetGroup {
@@ -27,6 +29,12 @@ page {
 	width: 100%;
 	justify-content: space-between;
 	margin-bottom: 40rpx;
+	padding: 20rpx;
+	box-sizing: border-box;
+	border-radius: 16rpx;
+	background: rgba($color: #ffffff, $alpha: 1);
+	border: 2rpx solid rgba($color: #eaeaea, $alpha: 0.25);
+	box-shadow: 0 10rpx 20rpx rgba($color: #eaeaea, $alpha: 0.25);
 }
 
 .group {
@@ -51,7 +59,18 @@ sub {
 	vertical-align: text-bottom;
 }
 
+.assetContent {
+	padding: 20rpx 20rpx 40rpx;
+	box-sizing: border-box;
+	border-radius: 16rpx;
+	background: rgba($color: #ffffff, $alpha: 1);
+	border: 2rpx solid rgba($color: #eaeaea, $alpha: 0.25);
+	box-shadow: 0 10rpx 20rpx rgba($color: #eaeaea, $alpha: 0.25);
+}
+
 .update_time {
+	padding: 20rpx;
+	box-sizing: border-box;
 	font-size: 24rpx;
 	color: rgba($color: #000000, $alpha: 0.5);
 	margin-top: var(--mb-16);
