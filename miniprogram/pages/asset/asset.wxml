@@ -18,7 +18,10 @@
 		</view>
 		<view class="group">
 			<view class="title">涉密性质</view>
-			<view class="content">{{asset.secret_flag ? "涉密" : "非涉密"}}</view>
+			<view class="content">
+				<van-tag wx:if="{{asset.secret_flag}}" type="danger" size="large">涉密</van-tag>
+				<van-tag wx:if="{{!asset.secret_flag}}" type="primary" size="large">非涉密</van-tag>
+			</view>
 		</view>
 		<view class="group">
 			<view class="title">资产价格</view>
@@ -36,4 +39,5 @@
 		<view class="title">资产描述</view>
 		<rich-text nodes="{{asset.description}}" class="content"></rich-text>
 	</view>
+	<view class="update_time">更新时间：{{asset.update_time}}</view>
 </view>

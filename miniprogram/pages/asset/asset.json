@@ -1,5 +1,7 @@
 {
-    "usingComponents": {},
+    "usingComponents": {
+        "van-tag": "@vant/weapp/tag/index"
+    },
     "backgroundTextStyle": "dark",
     "navigationBarTitleText": "资产详情",
     "navigationBarBackgroundColor": "#fafafa",

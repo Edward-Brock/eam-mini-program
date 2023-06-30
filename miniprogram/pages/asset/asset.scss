@@ -2,6 +2,11 @@
 @import "../../app.scss";
 
 page {
+	--mb-8: 8rpx;
+	--mb-16: 16rpx;
+}
+
+page {
 	background: #fafafa;
 	padding: 0 40rpx;
 	box-sizing: border-box;
@@ -25,6 +30,7 @@ page {
 .title {
 	font-size: 28rpx;
 	color: rgba($color: #000000, $alpha: 0.5);
+	margin-bottom: var(--mb-8);
 }
 
 .content {
@@ -34,4 +40,10 @@ page {
 sub {
 	font-size: 24rpx;
 	vertical-align: text-bottom;
+}
+
+.update_time {
+	font-size: 24rpx;
+	color: rgba($color: #000000, $alpha: 0.5);
+	margin-top: var(--mb-16);
 }
