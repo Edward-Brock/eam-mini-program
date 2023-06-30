@@ -21,7 +21,21 @@ Page({
       { number: 0, title: '资产投入使用量' }
     ],
     // 获取的当前所有资产信息
-    allAssetInfo: []
+    allAssetInfo: [],
+    code: ''
+  },
+
+  getScanCode() {
+    // 允许从相机和相册扫码
+    wx.scanCode({
+      onlyFromCamera: true,
+      scanType: ['barCode'],
+      success: (res) => {
+        wx.redirectTo({
+          url: `/pages/asset/asset?type=scan&code=${res.result}`
+        })
+      }
+    })
   },
 
   /**

@@ -1,7 +1,8 @@
 <!--pages/asset/asset.wxml-->
 <view>
 	<view class="code">
-		{{asset.code}}
+		<canvas canvas-id="barcode" style="width: 400rpx; height: 150rpx;" />
+		<view>{{asset.code}}</view>
 	</view>
 	<view class="assetGroup">
 		<view class="group">

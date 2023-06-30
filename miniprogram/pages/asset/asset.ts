@@ -1,4 +1,7 @@
 // pages/asset/asset.ts
+import wxbarcode from 'wxbarcode'
+const app = getApp<IAppOption>()
+
 Page({
 
     /**
@@ -21,13 +24,57 @@ Page({
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad() {
+    onLoad(data) {
         let that = this;
+        /**
+         * 判断跳转至该页面是通过点击方式还是扫描条形码方式
+         * data.type = scan -> 扫描条形码
+         */
+        if (data.type === 'scan') {
+            console.log("条形码扫描跳转");
+
+            wx.request({
+                url: app.globalData.baseURL + 'asset/' + data.code,
+                method: "GET",
+                success(res: any) {
+                    // console.log('资产获取成功：', res.data);
+                    res.data.update_time = that.dateFunction(res.data.update_time);
+                    wxbarcode.barcode('barcode', res.data.code, 400, 150);
+                    // 扫描条形码获取的资产状态未替换文字，需要重新替换
+                    switch (res.data.state) {
+                        case 'unused':
+                            res.data.state = '未使用'
+                            break;
+
+                        case 'using':
+                            res.data.state = '使用中'
+                            break;
+
+                        case 'deactivate':
+                            res.data.state = '已停用'
+                            break;
+
+                        case 'wreck':
+                            res.data.state = '报废'
+                            break;
+
+                        default:
+                            res.data.state = '未知'
+                            break;
+                    }
+
+                    that.setData({
+                        asset: res.data
+                    })
+                }
+            })
+        }
         const eventChannel = this.getOpenerEventChannel();
         // 监听acceptDataFromOpenerPage事件，获取上一页面通过eventChannel传送到当前页面的数据F
         eventChannel.on('indexToAssetPages', function (res) {
             // console.log('资产获取成功：', res.data);
-            res.data.update_time = that.dateFunction(res.data.update_time)
+            res.data.update_time = that.dateFunction(res.data.update_time);
+            wxbarcode.barcode('barcode', res.data.code, 400, 150);
             that.setData({
                 asset: res.data
             })

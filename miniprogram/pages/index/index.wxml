@@ -15,6 +15,9 @@
         </view>
       </view>
     </view>
+    <view>
+      <view bindtap="getScanCode">资产查询</view>
+    </view>
   </view>
 
   <view class="content">

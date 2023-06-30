@@ -1,6 +1,6 @@
 {
   "name": "eam-mini-program",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -11,7 +11,8 @@
   "author": "",
   "license": "",
   "dependencies": {
-    "@vant/weapp": "^1.10.18"
+    "@vant/weapp": "^1.10.18",
+    "wxbarcode": "^1.0.2"
   },
   "devDependencies": {
     "miniprogram-api-typings": "^3.9.1"
